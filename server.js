@@ -33,9 +33,13 @@ fs.createReadStream("Lab3_Data/raw_tracks.csv")
 .pipe(csv({}))
 .on("data", (data) => tracksCsvData.push(data));
 
-app.use(express.json());
+app.listen(3000, () => console.log("Listening on port 30"));
 
-app.use('/',express.static('static'));
+app.get('/findTracks', function(req,res))
+
+//app.use(express.json());
+
+//app.use('/',express.static('static'));
 
 //app.get();
 
