@@ -6,6 +6,7 @@ const app = express();
 const csv = require('csv-parser');
 const fs = require('fs');
 
+
 // Csv Data constants
 const genresCsvData = [];
 const albumCsvData = [];
@@ -41,7 +42,7 @@ fs.createReadStream("Lab3_Data/raw_tracks.csv")
 
 
 app.get('/getTrackSR', function(req,res){
-    
+     
     var trackSearch = req.query.trackSearchBar; //Name of search Bar
 
     var trackSearchResults = tracksCsvData.filter(tracksCsvData => tracksCsvData.track_title.toString().toLowerCase().includes(trackSearch.toLowerCase()));
@@ -96,6 +97,33 @@ app.get('/getAlbumSR', function(req,res){
     res.send(albumSR);
 });
 
+app.get('/getPlaylist', function(req,res){
+
+    var albumSearch = req.query.albumSearchBar //Name of search Bar
+    var albumSearchResults = albumCsvData.filter(albumCsvData => albumCsvData.album_title.toString().toLowerCase().includes(albumSearch.toLowerCase()));
+    var albumSR = [];
+
+    for(var i=0; i < albumSearchResults.length; i++)
+    {
+        var tempAlbumJson = {};
+
+        tempAlbumJson.track_id = albumSearchResults[i].track_id;
+        tempAlbumJson.track_title = albumSearchResults[i].track_title;
+        tempAlbumJson.album_id = albumSearchResults[i].album_id;
+        tempAlbumJson.album_title = albumSearchResults[i].album_title;
+        tempAlbumJson.artist_id = albumSearchResults[i].artist_id;   
+        tempAlbumJson.artist_name = albumSearchResults[i].artist_name;
+        tempAlbumJson.tags = albumSearchResults[i].tags;
+        tempAlbumJson.track_date_created = albumSearchResults[i].track_date_created;
+        tempAlbumJson.track_date_recorded = albumSearchResults[i].track_date_recorded;
+        tempAlbumJson.track_genres = albumSearchResults[i].track_genres;
+        tempAlbumJson.track_number = albumSearchResults[i].track_number;
+
+        albumSR.push(tempAlbumJson);
+    }
+    res.send(albumSR);
+});
+
 app.get('/getArtistSR', function(req,res){
 
     var artistSearch = req.query.artistSearchBar //Name of search Bar
@@ -118,6 +146,45 @@ app.get('/getArtistSR', function(req,res){
     res.send(artistSR);
 
 });
+
+const JSONdb = require('simple-json-db');
+const db = new JSONdb('database.json')
+
+//create playlist with name
+app.post('/api/playlists/:given_name', (req,res) => {
+    const playlistName = req.params.given_name;
+    db.set(playlistName,'');
+    res.send("Playlist created")
+});
+
+//modify existing playlist
+app.put("/api/playlist/:given_name", (req,res) => {
+    const playlistName = req.params.given_name;
+    const trackList = req.query.trackList;
+    if(db.has(playlistName))
+    {
+        db.set(playlistName, trackList);
+        res.send(`Playlist ${playlistName} has been modified`)
+    }
+    else{
+        res.status(404).send(`Playlist ${playlistName} does not exist`);
+    }
+    res.send("Working")
+});
+
+//delete playlist
+app.delete('/api/playlists/:given_name'), (req,res) =>{
+    const listName = req.params.given_name;
+    if(db.has(listName))
+    {
+        db.delete(listName);
+        res.send(`Playlist ${listName} deleted`)
+    }
+}
+
+app.delete('/api/playlists/:given_name',(req,res) =>{
+
+})
 
 
 
