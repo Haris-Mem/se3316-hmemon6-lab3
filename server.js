@@ -12,13 +12,10 @@ const albumCsvData = [];
 const artistCsvData = [];
 const tracksCsvData = [];
 
-app.use(express.json())
-// app.use(express.urlencoded({ extended: false }))
-app.use(express.static("public"))
+app.use('/', express.static('static'));
 
-
-
-app.listen(3000, () => console.log("Listening on port 3000"));
+app.listen(3000);
+console.log('Listening on port 3000...')
 
 //genres
 fs.createReadStream("Lab3_Data/genres.csv")
@@ -44,6 +41,7 @@ fs.createReadStream("Lab3_Data/raw_tracks.csv")
 
 
 app.get('/getTrackSR', function(req,res){
+    
     var trackSearch = req.query.trackSearchBar; //Name of search Bar
 
     var trackSearchResults = tracksCsvData.filter(tracksCsvData => tracksCsvData.track_title.toString().toLowerCase().includes(trackSearch.toLowerCase()));
