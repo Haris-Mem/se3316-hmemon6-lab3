@@ -42,6 +42,16 @@ fs.createReadStream("Lab3_Data/raw_tracks.csv")
 .on("data", (data) => tracksCsvData.push(data));
 
 
+//get all genres
+app.get('/api/genres', function(req,res){
+    var genreArray = [];
+
+    for(var i = 0; i < genresCsvData.length; i++){
+    genreArray.push({genre: genresCsvData[i].title, genre_id: genresCsvData[i].genre_id, parent: genresCsvData[i].parent});
+    console.log(genreArray[i]);
+    }
+   res.send(genreArray);
+});
 
 // track by name
 app.get('/getTrackSR', function(req,res){

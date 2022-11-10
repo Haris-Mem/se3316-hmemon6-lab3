@@ -10,28 +10,28 @@
 <body>
     <div class="row">
         <form id="trackForm" class="flexbox">
-            <input name="trackInput" id="trackSearchBar" type="text" placeholder="Search by track..." />
+            <input name="trackInput" id="trackSearchBar" type="text" onkeydown="return /[a-z]/i.test(event.key)" placeholder="Search by track..." />
             <button class="button">Search</button>
         </form>
     </div>
 
     <div class="row">
         <form id="artistForm" class="flexbox">
-            <input name="artist" id="artistSearchBar" type="text" placeholder="Search by artist name..." />
+            <input name="artist" id="artistSearchBar" type="text" onkeydown="return /[a-z]/i.test(event.key)" placeholder="Search by artist name..." />
             <button class="button">Search</button>
         </form>
     </div>
 
     <div class="row">
         <form id="albumForm" class="flexbox">
-            <input name="album" id="albumSearchBar" type="text" placeholder="Search by album name..." />
+            <input name="album" id="albumSearchBar" type="text" onkeydown="return /[a-z]/i.test(event.key)" placeholder="Search by album name..." />
             <button class="button">Search</button>
         </form>
     </div>
 
     <div class = "row">
         <form id="addPlaylistForm" class="flexbox">
-            <input name="playlist" id="playlistInputBox" type="text" placeholder="Create Playlist" />
+            <input name="playlist" id="playlistInputBox" type="text" onkeydown="return /[a-z]/i.test(event.key)" placeholder="Create Playlist" />
             <button class="button">Add Playlist</button>
         </form>
     </div>
@@ -57,7 +57,7 @@
 
     <div class = "row">
         <form id="addTrackToPlaylistForm" ">
-            <input name="idList" id="playlistTrackIdList" type="text" placeholder="Add Tracks ID to Playlist" />
+            <input name="idList" id="playlistTrackIdList" type="text"  onkeydown="return /[a-z]/i.test(event.key)" placeholder="Add Tracks ID to Playlist" />
             <select id = "playlistComboBox" name="playlist" class="moveButton"></select>
             <button class="button">Add Tracks</button>
         </form>
