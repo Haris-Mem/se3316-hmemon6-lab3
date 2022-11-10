@@ -29,10 +29,52 @@
         </form>
     </div>
 
+    <div class = "row">
+        <form id="addPlaylistForm" class="flexbox">
+            <input name="playlist" id="playlistInputBox" type="text" placeholder="Create Playlist" />
+            <button class="button">Add Playlist</button>
+        </form>
+    </div>
+
+    <div class = "row">
+        <form id="displayPlaylistForm">
+            <button class="button">Display List</button>
+        </form>
+    </div>
+
+    <div class = "row">
+        <form id="orderPlaylistForm">
+            <label>Order list by: </label>
+            <select id = "orderPlaylistComboBox" name = "playlist" class="moveButton">
+                <option>Sort by Track ID</option>
+                <option>Sort by Artist ID</option>
+                <option>Sort by Album ID</option>
+                <option>Sort by Duration</option>
+            </select>
+            <button class="button">Order List</button>
+        </form>
+    </div>
+
+    <div class = "row">
+        <form id="addTrackToPlaylistForm" ">
+            <input name="idList" id="playlistTrackIdList" type="text" placeholder="Add Tracks ID to Playlist" />
+            <select id = "playlistComboBox" name="playlist" class="moveButton"></select>
+            <button class="button">Add Tracks</button>
+        </form>
+    </div>
+
+    <div class = "row">
+        <form id="deletePlaylistForm" class="flexbox" class="moveButton">
+            <label>Choose playlist to delete: </label>
+            <select id = "deletePlaylistComboBox" name="playlist" class="moveButton"></select>
+            <button class="button">Delete</button>
+        </form>
+    </div>
+
     <div id="tableDiv">
 
     </div>
-    
+
 </body>
 <script src="index.js"></script>
 </html>
