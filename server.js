@@ -83,6 +83,37 @@ app.get('/getTrackSR', function(req,res){
     res.send(trackSR);
 }); 
 
+// track by name
+app.get('/getTrackSR/', function(req,res){
+     
+    var trackSearch = req.query.trackSearchBar; //Name of search Bar
+
+    var trackSearchResults = tracksCsvData.filter(tracksCsvData => tracksCsvData.track_title.toString().toLowerCase().includes(trackSearch.toLowerCase()));
+
+    var trackSR = [];
+
+    for(var i=0; i < trackSearchResults.length; i++)
+    {
+        var tempTrackJson = {};
+
+        tempTrackJson.track_id = trackSearchResults[i].track_id;
+        tempTrackJson.track_title = trackSearchResults[i].track_title;
+        tempTrackJson.album_id = trackSearchResults[i].album_id;
+        tempTrackJson.album_title = trackSearchResults[i].album_title;
+        tempTrackJson.artist_id = trackSearchResults[i].artist_id;
+        tempTrackJson.artist_name = trackSearchResults[i].artist_name;
+        tempTrackJson.tags = trackSearchResults[i].tags;
+        tempTrackJson.track_date_created = trackSearchResults[i].track_date_created;
+        tempTrackJson.track_date_recorded = trackSearchResults[i].track_date_recorded;
+        tempTrackJson.track_genres = trackSearchResults[i].track_genres;
+        tempTrackJson.track_number = trackSearchResults[i].track_number;
+
+        trackSR.push(tempTrackJson);
+    }
+    
+    res.send(trackSR);
+}); 
+
 //album by search
 app.get('/getAlbumSR', function(req,res){
 
